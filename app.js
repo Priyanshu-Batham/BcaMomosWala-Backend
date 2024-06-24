@@ -1,8 +1,11 @@
-import express from "express";
+import express, { urlencoded } from "express";
 import dotenv from "dotenv";
 import { connectToDb } from "./config/database.js";
 import { connectToPassport } from "./utils/Provider.js"
 import session from "express-session";
+import cookieParser from "cookie-parser";
+import passport from "passport";
+import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 
 const app = express();
 //setting up the env variable file
@@ -13,6 +16,12 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+}))
+
+app.use(cookieParser());
+app.use(express.json());
+app.use(urlencoded({
+  extended: true, 
 }))
 
 app.use(passport.authenticate("session"));
@@ -27,9 +36,12 @@ connectToDb();
 
 //Importing user routes
 import userRouter from './routes/user.js'
-import passport from "passport";
-app.use('/api/v1', userRouter);
+import orderRouter from './routes/orders.js'
 
+app.use('/api/v1', userRouter);
+app.use('/api/v1', orderRouter);
+
+app.use(errorMiddleware)
 
 app.get("/", (req, res, next) => {
   res.send("<h1>Priyanshu Batham</h1>");
