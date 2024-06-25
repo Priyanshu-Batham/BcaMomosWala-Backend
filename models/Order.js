@@ -116,4 +116,4 @@ const schema = mongoose.Schema({
   },
 });
 
-export const Order = mongoose.model("momosorder", schema);
+export const Order = mongoose.model("orders", schema);

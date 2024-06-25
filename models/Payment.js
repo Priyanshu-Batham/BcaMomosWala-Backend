@@ -22,4 +22,4 @@ const schema = mongoose.schema({
     }
 });
 
-export const Payment = mongoose.model("momospayment", schema);
+export const Payment = mongoose.model("payments", schema);

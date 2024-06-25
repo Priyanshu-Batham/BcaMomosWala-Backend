@@ -5,8 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "SET NODE_ENV=production & node server.js",
+    "dev": "SET NODE_ENV=development & nodemon server.js"
   },
   "author": "Priyanshu Batham",
   "license": "ISC",
